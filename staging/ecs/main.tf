@@ -210,3 +210,48 @@ module "ensitf_web_svc" {
     }
   }
 }
+
+
+########## erp service ############
+
+module "erp_svc_sg" {
+  source       = "../../modules/security_group"
+  rules        = var.erp_svc_rules
+  vpc_id       = var.vpc_id
+  service_name = "erp-svc-${var.env}-sg"
+}
+
+module "staging_erp_svc" {
+  service_name               = "staging-erp-svc"
+  source                     = "../../modules/ecs"
+  vpc_id                     = var.vpc_id
+  subnet_ids                 = var.private_subnets
+  health_check_path          = "/login"
+  metric_name                = "MemoryUtilization"
+  health_check_success_codes = "200-400"
+  container_port             = 443
+  tg_port                    = 443
+  tg_protocol                = "HTTPS"
+  tg_unhealthy_threshold     = 5
+  tg_healthy_threshold       = 2
+  tg_name                    = "staging-erp-svc"
+  desired_count              = 1
+  lb_dns_name                = var.staging_lb["lb_dns_name"]
+  route53_zone_id            = var.ensitf_ng_zone_id
+  listener_arn               = var.staging_lb["listener_arn"][0]
+  fqdn                       = "erp.ensitf.ng"
+  lb_zone_id                 = var.staging_lb["lb_zone_id"]
+  ecs_cluster                = aws_ecs_cluster.cluster1.arn
+  compute_info               = [256, 512]
+  security_groups            = [module.erp_svc_sg.id]
+  alb_arn_suffix             = var.staging_lb["lb_arn_suffix"]
+  container_definitions = {
+    staging-erp-svc = {
+      image       = "746669210359.dkr.ecr.eu-west-1.amazonaws.com/erp:staging"
+      environment = var.erp_svc_env
+      secret      = var.erp_svc_secrets
+      port        = 443
+      command     = []
+    }
+  }
+}

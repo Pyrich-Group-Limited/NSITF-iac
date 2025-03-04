@@ -428,3 +428,151 @@ variable "ensitf_servicom_service_secret" {
     }
   ]
 }
+
+variable "erp_svc_rules" {
+  default = {
+    "Allow connections from local" = {
+      from_port          = "443"
+      to_port            = "443"
+      protocol           = "tcp"
+      allowed_cidr_block = "10.116.0.0/16"
+    }
+  }
+}
+
+
+variable "erp_svc_secrets" {
+  default = [
+    {
+      "name" : "DB_USERNAME"
+      "valueFrom" : "/staging/erp/mysql_user"
+    },
+    {
+      "name" : "DB_PASSWORD"
+      "valueFrom" : "/staging/erp/mysql_password"
+    },
+    {
+      "name" : "MAIL_FROM_NAME"
+      "valueFrom" : "/staging/erp/mail_from_name"
+    },
+    {
+      "name" : "APP_KEY"
+      "valueFrom" : "/staging/erp/app_key"
+    },
+    {
+      "name" : "MAIL_PASSWORD"
+      "valueFrom" : "/staging/erp/mail_password"
+    },
+    {
+      "name" : "MAIL_USERNAME"
+      "valueFrom" : "/staging/erp/mail_username"
+    }
+  ]
+}
+
+
+
+variable "erp_svc_env" {
+  default = [
+    {
+      "name" : "MAIL_HOST"
+      "value" : "mailhog"
+    },
+    {
+      "name" : "MAIL_MAILER"
+      "value" : "smtp"
+    },
+    {
+      "name" : "REDIS_PORT"
+      "value" : "6379"
+    },
+    {
+      "name" : "REDIS_PASSWORD"
+      "value" : "null"
+    },
+    {
+      "name" : "REDIS_HOST"
+      "value" : "127.0.0.1"
+    },
+    {
+      "name" : "SESSION_LIFETIME"
+      "value" : "120"
+    },
+    {
+      "name" : "SESSION_DRIVER"
+      "value" : "file"
+    },
+    {
+      "name" : "QUEUE_CONNECTION"
+      "value" : "sync"
+    },
+    {
+      "name" : "CACHE_DRIVER"
+      "value" : "file"
+    },
+    {
+      "name" : "BROADCAST_DRIVER"
+      "value" : "log"
+    },
+    {
+      "name" : "APP_NAME"
+      "value" : "ensitf"
+    },
+    {
+      "name" : "APP_DEBUG"
+      "value" : "true"
+    },
+    {
+      "name" : "APP_URL"
+      "value" : "https://erp.ensitf.ng"
+    },
+    {
+      "name" : "LOG_CHANNEL"
+      "value" : "stack"
+    },
+    {
+      "name" : "DB_CONNECTION"
+      "value" : "mysql"
+    },
+    {
+      "name" : "DB_DATABASE"
+      "value" : "erp_staging"
+    },
+    {
+      "name" : "DB_PORT"
+      "value" : "3306"
+    },
+    {
+      "name" : "DB_HOST"
+      "value" : "ensitf-production-db.ct6ekoycyk4r.eu-west-1.rds.amazonaws.com"
+    },
+    {
+      "name" : "MAIL_PORT"
+      "value" : "1025"
+    },
+    {
+      "name" : "MAIL_ENCRYPTION"
+      "value" : "null"
+    },
+    {
+      "name" : "MAIL_FROM_ADDRESS"
+      "value" : "hello@example.com"
+    },
+    {
+      "name" : "CONTAINER_ROLE"
+      "value" : "app"
+    },
+    {
+      "name" : "APP_ENV"
+      "value" : "local"
+    },
+    {
+      "name" : "LOG_DEPRECATIONS_CHANNEL"
+      "value" : "null"
+    },
+    {
+      "name" : "LOG_LEVEL"
+      "value" : "debug"
+    }
+  ]
+}

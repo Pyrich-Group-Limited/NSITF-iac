@@ -29,6 +29,13 @@ variable "ecr_repo" {
       attach_repository_policy = false
       create_lifecycle_policy  = false
     }
+    erp = {
+      image_tag_mutability     = true
+      image_scan_on_push       = true
+      encryption_type          = "AES256"
+      attach_repository_policy = false
+      create_lifecycle_policy  = false
+    }
   }
 }
 
