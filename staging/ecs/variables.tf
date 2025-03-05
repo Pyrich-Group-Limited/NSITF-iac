@@ -10,6 +10,8 @@ variable "ensitf_ng_zone_id" {
 
 }
 
+variable "ensitf_ng_dns_zone_id" {}
+
 
 variable "ensitf_svc_rules" {
   default = {

@@ -1,26 +1,16 @@
-variable "vpc_id" {
+variable "vpc_id" {}
 
-}
+variable "nat_gw" {}
 
-variable "nat_gw" {
+variable "ensitf_ng_dns_zone_id" {}
 
-}
+variable "lb_info" {}
 
-variable "lb_info" {
+variable "internet_gw" {}
 
-}
+variable "https_default_cert_arn" {}
 
-variable "internet_gw" {
-
-}
-
-variable "https_default_cert_arn" {
-
-}
-
-variable "ensitf_ng_zone_id" {
-
-}
+variable "ensitf_ng_zone_id" {}
 
 variable "db_rules" {
   default = {

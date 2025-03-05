@@ -237,9 +237,9 @@ module "staging_erp_svc" {
   tg_name                    = "staging-erp-svc"
   desired_count              = 1
   lb_dns_name                = var.staging_lb["lb_dns_name"]
-  route53_zone_id            = var.ensitf_ng_zone_id
+  route53_zone_id            = var.ensitf_ng_dns_zone_id
   listener_arn               = var.staging_lb["listener_arn"][0]
-  fqdn                       = "erp.ensitf.ng"
+  fqdn                       = "erp-staging.pglnigeriaerp.com"
   lb_zone_id                 = var.staging_lb["lb_zone_id"]
   ecs_cluster                = aws_ecs_cluster.cluster1.arn
   compute_info               = [256, 512]

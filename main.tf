@@ -52,7 +52,7 @@ module "production" {
   internet_gw            = aws_internet_gateway.igw.id
   https_default_cert_arn = module.ensitf_ng_acm.cert_arn_dns
   ensitf_ng_zone_id      = module.ensitf_ng_dns.zone_id
-  cert_list              = [module.ensitf_ng_acm.cert_arn_dns]
+  cert_list              = [module.ensitf_ng_acm.cert_arn_dns, module.glnigeriaerp_com_acm.cert_arn_dns]
   depends_on = [
     aws_vpc.vpc
   ]
@@ -66,6 +66,7 @@ module "staging" {
   https_default_cert_arn = module.ensitf_ng_acm.cert_arn_dns
   ensitf_ng_zone_id      = module.ensitf_ng_dns.zone_id
   lb_info                = module.production.prod_lb_info
+  ensitf_ng_dns_zone_id = module.pglnigeriaerp_com_dns.zone_id
   depends_on = [
     aws_vpc.vpc
   ]
@@ -90,6 +91,23 @@ module "ensitf_ng_acm" {
   subject_alternative_names   = ["*.ensitf.ng", "ensitf.ng"]
   wait_for_certificate_issued = false
   dns_zone                    = "ensitf.ng"
+  depends_on = [
+    module.ensitf_ng_dns
+  ]
+}
+
+module "pglnigeriaerp_com_dns" {
+  source       = "./modules/dns"
+  hosted_zones = "pglnigeriaerp.com"
+}
+
+module "glnigeriaerp_com_acm" {
+  source                      = "./modules/acm"
+  domain_name                 = "pglnigeriaerp.com"
+  domain_validation_options   = "DNS"
+  subject_alternative_names   = ["*.pglnigeriaerp.com", "pglnigeriaerp.com"]
+  wait_for_certificate_issued = false
+  dns_zone                    = "pglnigeriaerp.com"
   depends_on = [
     module.ensitf_ng_dns
   ]
