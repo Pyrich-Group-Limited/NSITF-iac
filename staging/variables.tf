@@ -2,7 +2,7 @@ variable "vpc_id" {}
 
 variable "nat_gw" {}
 
-variable "ensitf_ng_dns_zone_id" {}
+variable "pglnigeriaerp_zone_id" {}
 
 variable "lb_info" {}
 

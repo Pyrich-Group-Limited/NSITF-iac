@@ -18,6 +18,9 @@ variable "cert_list" {
 
 }
 
+variable "pglnigeriaerp_zone_id" {
+
+}
 
 variable "env" {
   default = "production"

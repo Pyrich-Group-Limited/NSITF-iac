@@ -52,6 +52,7 @@ module "production" {
   internet_gw            = aws_internet_gateway.igw.id
   https_default_cert_arn = module.ensitf_ng_acm.cert_arn_dns
   ensitf_ng_zone_id      = module.ensitf_ng_dns.zone_id
+  pglnigeriaerp_zone_id  = module.pglnigeriaerp_com_dns.zone_id
   cert_list              = [module.ensitf_ng_acm.cert_arn_dns, module.glnigeriaerp_com_acm.cert_arn_dns]
   depends_on = [
     aws_vpc.vpc
@@ -66,7 +67,7 @@ module "staging" {
   https_default_cert_arn = module.ensitf_ng_acm.cert_arn_dns
   ensitf_ng_zone_id      = module.ensitf_ng_dns.zone_id
   lb_info                = module.production.prod_lb_info
-  ensitf_ng_dns_zone_id = module.pglnigeriaerp_com_dns.zone_id
+  pglnigeriaerp_zone_id  = module.pglnigeriaerp_com_dns.zone_id
   depends_on = [
     aws_vpc.vpc
   ]

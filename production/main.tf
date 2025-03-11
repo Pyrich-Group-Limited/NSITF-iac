@@ -80,10 +80,11 @@ module "cv_backend_production_db" {
   apply_immediately     = true
 }
 
-# module "ecs" {
-#   source                               = "./ecs"
-#   prod_lb                              = module.ec2.lb_info
-#   ensitf_ng_zone_id = var.ensitf_ng_zone_id
-#   vpc_id                               = var.vpc_id
-#   private_subnets                      = module.subnets.private_subnets
-# }
+module "ecs" {
+  source                = "./ecs"
+  prod_lb               = module.ec2.lb_info
+  ensitf_ng_zone_id     = var.ensitf_ng_zone_id
+  vpc_id                = var.vpc_id
+  private_subnets       = module.subnets.private_subnets
+  pglnigeriaerp_zone_id = var.pglnigeriaerp_zone_id
+}
