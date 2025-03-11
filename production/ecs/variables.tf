@@ -434,7 +434,7 @@ variable "erp_svc_env" {
     },
     {
       "name" : "APP_DEBUG"
-      "value" : "true"
+      "value" : "false"
     },
     {
       "name" : "APP_URL"
